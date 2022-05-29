@@ -1,0 +1,108 @@
+
+
+/* @media print {
+    @page {
+      size: landscape
+    }
+  } */
+
+  *{
+    direction: rtl;
+    text-align: initial;
+    float: right;
+    background-color: white;
+}
+div , p , a , span {
+    direction: rtl;
+    text-align: initial;
+    float: right;
+}
+
+.img_avatar{
+    width: 50px;
+    height: 50px;
+    margin-right: 10px;
+}
+.c-avatar-img{
+    width: 100%;
+    height: auto;
+    border-radius: 50em;
+}
+.el-dialog{
+    margin: 0 !important;
+    display: block !important;
+    width: 100% !important;
+}
+.el-tree-node__content {
+    padding: 1rem;
+    height: auto;
+  }
+  
+  /* .el-tree-node__content:hover {
+    background-color: unset;
+  } */
+  
+  .el-tree-node__expand-icon {
+    font-size: 14px;
+  }
+  .top {
+    display: none !important;
+  }
+  .el-icon-caret-left{
+      display: none !important;
+  }
+  .el-tree-node {
+    white-space: unset;
+    text-align: initial;
+  }
+  .custom-tree-node h6 {
+    margin: 0 !important;
+    display: flex !important;
+    justify-content: space-between !important;
+  }
+  .custom-tree-node > div {
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+  *:focus {
+    outline: none !important;
+  }
+  .el-switch {
+    display: none !important;
+  }
+  .el-dialog__title{
+      display: none;
+  }
+  .el-dialog__close{
+      display: none !important;
+  }
+  .el-icon-printer{
+      display: none !important;
+  }
+  .el-dialog__headerbtn {
+    display: none !important;
+  }
+  .el-dialog__header {
+    display: flex !important;
+    justify-content: space-between !important;
+  }
+  .review_header {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex !important;
+    -webkit-box-align: center !important;
+    -ms-flex-align: center !important;
+    align-items: center !important;
+    margin: 0.5rem 0.5rem !important;
+  }
+  a{
+    color: #173f5f;
+    font-weight: bold;
+    text-decoration: none !important;
+  }
+  .h7{
+      display: block !important;
+  }
+  .lh-2 {
+    line-height: 2;
+  }
