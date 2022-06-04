@@ -17,7 +17,7 @@ class CreateCategoriesTable extends Migration
             $table->increments('id');
             $table->string('ar_name');
             $table->string('en_name');
-            $table->integer('price',20);
+            $table->integer('price',20)->default(0);
             $table->text('search_text')->nullable();
             $table->timestamps();
         });
