@@ -27,7 +27,12 @@ class UsersController extends Controller
     {
         $user = Auth::user();
         $user = User::find($user->id);
-        $user->fill($request->all());
+        $inputs = $request->all();
+        if($request->has('password'))
+        {
+            $inputs['password'] = bcrypt($request->password);
+        }
+        $user->fill($inputs);
         $user->save();
         return success($user);
     }

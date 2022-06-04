@@ -14,4 +14,14 @@ class Category extends Model
     {
         return $this->hasMany(Order::class);
     }
+
+    public function save(array $options = [])
+    {
+        $ar_name = ($this->ar_name) ? str_replace(" ", "", $this->ar_name) : "";
+        $en_name = ($this->en_name) ? str_replace(" ", "", $this->en_name) : "";
+        $text = "#$this->id, $ar_name, $en_name , $this->price";
+        $this->search_text = $text;
+        parent::save($options);
+    }
+    
 }

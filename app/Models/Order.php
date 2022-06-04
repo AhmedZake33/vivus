@@ -15,4 +15,11 @@ class Order extends Model
     {
         return $this->belongsTo(category::class);
     }
+
+    public function save(array $options = [])
+    {
+        $text = "#$this->id, $this->Quantity, $this->details , $this->category_id";
+        $this->search_text = $text;
+        parent::save($options);
+    }
 }
