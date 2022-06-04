@@ -22,6 +22,7 @@ class CreateLocationsTable extends Migration
             $table->string('country',20);
             $table->integer('user_id');
             $table->integer('type');
+            $table->primary('id');
             $table->text('search_text')->nullable();
             $table->timestamps();
         });
