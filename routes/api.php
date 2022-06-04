@@ -22,7 +22,7 @@ Route::post('login','AuthController@login');
 
 // Authenticated Routes
 Route::group(['middleware' => 'auth:sanctum'], function () {
-    Route::get('/profile','UsersController@profile');
+    
     Route::get('users','UsersController@index');
     Route::post("post/create",'PostsController@create');
     Route::post("category/add","CategoriesController@create");
@@ -38,8 +38,18 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::post('orders','OrdersController@index');
     Route::post('order/create','OrdersController@create');
     Route::get('order/{id}','OrdersController@get');
+    Route::get('myorders','OrdersController@myOrders');
+
+
+    // archive routes
+    Route::get("archive/secureDownload/{sid}", 'ArchiveController@secureDownload')->name('secure_download_file');
+
 
 
     //users routes
     Route::post('user/edit','UsersController@edit');
+    Route::get('/profile','UsersController@profile');
+
+    // lookups routes 
+    route::get('lookups','LookupsController@lookups');
 });

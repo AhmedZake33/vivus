@@ -73,6 +73,11 @@ class User extends Authenticatable
         return $this->hasMany(Location::class);
     }
 
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
+    }
+
     public function save(array $options = [])
     {
         $name = "$this->name";

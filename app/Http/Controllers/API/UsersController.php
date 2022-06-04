@@ -11,7 +11,11 @@ class UsersController extends Controller
 {
     public function profile(Request $request)
     {
-        return success($request->user(),System::HTTP_OK);
+        $user = Auth::user();
+        $details = $user;
+        $archive = $user->archive->findChildByShortName('PERSONAL_ID_CARD');
+        $details->photo = $archive ? route('secure_download_file', ['sid' => $archive->secret()]) : null;
+        return success($details,System::HTTP_OK);
     }
 
     public function index()

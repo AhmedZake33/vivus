@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Order;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Auth;
 use App\Models\System\System;
 use Illuminate\Support\Facades\DB;
 
@@ -15,6 +16,10 @@ class OrdersController extends Controller
    
     public function index(Request $request)
     {
+        if(!can('admin_orders'))
+        {
+            return error(401,'unauthenticated');
+        }
         $query = DB::table('orders')->leftJoin('categories','categories.id','orders.category_id')
         ->select('orders.id','orders.created_at','categories.id','categories.ar_name','categories.en_name','categories.price','orders.Quantity','orders.details');
         
@@ -54,7 +59,9 @@ class OrdersController extends Controller
         $validator = Validator::make($request->all(), $validations, $messages);
         if ($validator->fails())
         return response()->json(['error' => implode(" - ", $validator->errors()->all()) . 'برجاء المراجعة '], 500);
-        $order  = Order::create($request->all());
+        $inputs = $request->all();
+        $inputs['user_id'] = Auth::user()->id;
+        $order  = Order::create($inputs);
 
         return success($order,200);
     }
@@ -63,6 +70,12 @@ class OrdersController extends Controller
     {
         $order = Order::find($id);
         return success($order,System::HTTP_OK , 'success');
+    }
+
+    public function myOrders()
+    {
+        $user = Auth::user();
+        return success($user->orders);
     }
 
    

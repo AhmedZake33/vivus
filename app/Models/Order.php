@@ -8,13 +8,18 @@ use Illuminate\Database\Eloquent\Model;
 class Order extends Model
 {
     use HasFactory;
-    protected $fillable = ['Quantity','details','category_id'];
+    protected $fillable = ['Quantity','details','category_id','user_id'];
     protected $with = ['category:id,ar_name,en_name,price'];
 
     public function category()
     {
         return $this->belongsTo(category::class);
     }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }  
 
     public function save(array $options = [])
     {
