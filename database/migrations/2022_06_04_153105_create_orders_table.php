@@ -17,7 +17,7 @@ class CreateOrdersTable extends Migration
             $table->increments('id');
             $table->integer('Quantity',20);
             $table->string('details',100);
-            $table->integer('category_id');
+            $table->unsignedBigInteger('category_id');
             $table->primary('id');
             $table->foreign('category_id')->references('id')->on('categories');
             $table->text('search_text')->nullable();
