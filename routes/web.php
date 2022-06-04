@@ -30,7 +30,7 @@ CREATE TABLE archive (
   language char(2) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'en',
   short_name varchar(32) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   parent_id int NOT NULL DEFAULT 0,
-  type int NOT NULL DEFAULT 0 COMMENT '0: folder, 1:page, 2:binary, 3:text, 4:json 5:xml, 6:url',
+  type int NOT NULL DEFAULT 0,
   archive_link varchar(200) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   order int DEFAULT NULL,
   flags int NOT NULL DEFAULT 3,
