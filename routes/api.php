@@ -38,4 +38,8 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::post('orders','OrdersController@index');
     Route::post('order/create','OrdersController@create');
     Route::get('order/{id}','OrdersController@get');
+
+
+    //users routes
+    Route::post('user/edit','UsersController@edit');
 });
