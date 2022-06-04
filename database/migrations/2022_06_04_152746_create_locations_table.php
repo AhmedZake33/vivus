@@ -14,7 +14,7 @@ class CreateLocationsTable extends Migration
     public function up()
     {
         Schema::create('locations', function (Blueprint $table) {
-            $table->id();
+            $table->increments('id');
             $table->string('lat',20);
             $table->string('lng',20);
             $table->string('street',20);
