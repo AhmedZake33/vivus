@@ -23,6 +23,7 @@ class CreateLocationsTable extends Migration
             $table->integer('user_id');
             $table->integer('type');
             $table->primary('id');
+            $table->foreign('user_id')->references('id')->on('users');
             $table->text('search_text')->nullable();
             $table->timestamps();
         });

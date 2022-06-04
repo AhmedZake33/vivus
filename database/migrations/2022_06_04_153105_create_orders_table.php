@@ -19,6 +19,7 @@ class CreateOrdersTable extends Migration
             $table->string('details',100);
             $table->integer('category_id');
             $table->primary('id');
+            $table->foreign('category_id')->references('id')->on('categories');
             $table->text('search_text')->nullable();
             $table->timestamps();
         });
