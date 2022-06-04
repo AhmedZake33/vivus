@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePostsTable extends Migration
+class CreateLocationsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,15 @@ class CreatePostsTable extends Migration
      */
     public function up()
     {
-        Schema::create('posts', function (Blueprint $table) {
+        Schema::create('locations', function (Blueprint $table) {
             $table->id();
-            $table->integer('user_id',20);
-            $table->string('header',200);
-            $table->string('content',200);
+            $table->string('lat',20);
+            $table->string('lng',20);
+            $table->string('street',20);
+            $table->string('city',20);
+            $table->string('country',20);
+            $table->integer('user_id');
+            $table->integer('type');
             $table->text('search_text')->nullable();
             $table->timestamps();
         });
@@ -30,6 +34,6 @@ class CreatePostsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('posts');
+        Schema::dropIfExists('locations');
     }
 }
