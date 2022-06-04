@@ -19,7 +19,6 @@ class CreatePostsTable extends Migration
             $table->string('header',200);
             $table->string('content',200);
             $table->text('search_text')->nullable();
-            $table->primary('id');
             $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();
         });

@@ -22,7 +22,6 @@ class CreateLocationsTable extends Migration
             $table->string('country',20);
             $table->unsignedBigInteger('user_id');
             $table->integer('type');
-            $table->primary('id');
             $table->foreign('user_id')->references('id')->on('users');
             $table->text('search_text')->nullable();
             $table->timestamps();
