@@ -40,7 +40,7 @@ route::get('prepare',function(){
     INSERT INTO model_has_roles (role_id, model_type, model_id) VALUES
     (1, 'App\Models\User', 1);
 
-    INSERT INTO `countries` (`id`, `code`, `extended_code`, `name`, `name_local`, `nationality`, `nationality_local`) VALUES
+    INSERT INTO countries (id, code, extended_code, name, name_local, nationality, nationality_local) VALUES
 (1, 'AW', 'ABW', 'Aruba', 'أروبا', 'Aruban', 'أوروبهيني'),
 (2, 'AF', 'AFG', 'Afghanistan', 'أفغانستان', 'Afghan', 'أفغانستاني'),
 (3, 'AO', 'AGO', 'Angola', 'أنغولا', 'Angolan', 'أنقولي'),
@@ -290,9 +290,9 @@ route::get('prepare',function(){
 (251, 'MF', 'MAF', 'Saint Martin (French)', 'ساينت مارتن فرنسي', 'Saint Martin (French)', 'ساينت مارتن فرنسي'),
 (252, 'SX', 'SX', 'Saint Martin (Dutch)', 'ساينت مارتن هولندي', 'Saint Martin (Dutch)', 'ساينت مارتن هولندي'),
 (253, 'SS', 'SSD', 'South Sudan', 'جنوب السودان', 'South Sudanese', 'جنوب سوداني');
-ALTER TABLE `countries`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `code_index` (`code`);
+ALTER TABLE countries
+  ADD PRIMARY KEY (id),
+  ADD UNIQUE KEY code_index (code);
 
     
 
