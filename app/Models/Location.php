@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use DB;
 
 class Location extends Model
 {   
@@ -17,6 +18,20 @@ class Location extends Model
        
         return $this->belongsTo(User::class);
         
+    }
+
+    public static function checkAvaiablity($location)
+    {
+        if($location)
+        {
+            $status = DB::table('avaiable_locations')->where('country_id',$location->country)->first();
+            if($status != null)
+            {
+                return true;
+            }else{
+                return false;
+            }
+        }
     }
 
 

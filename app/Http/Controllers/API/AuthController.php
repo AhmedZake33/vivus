@@ -54,7 +54,8 @@ class AuthController extends Controller
         try {
             $user->archive->addDocumentWithShortName($request->file, 'PERSONAL_ID', 'PERSONAL_ID_CARD', 'PERSONAL_ID_CARD');
         } catch (\Exception $ex) {
-            return response()->json(['message' => $ex], 500);
+            // return response()->json(['message' => $ex], 500);
+            return success(['message' => $ex],200,'error in adding photo');
         }
 
         $success['user'] = $user;

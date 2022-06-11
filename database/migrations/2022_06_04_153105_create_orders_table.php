@@ -17,9 +17,12 @@ class CreateOrdersTable extends Migration
             $table->increments('id');
             $table->unsignedBigInteger('user_id');
             $table->integer('Quantity')->nullable()->default(0);
+
             $table->string('details',100);
-            $table->unsignedBigInteger('category_id');
-            $table->foreign('category_id')->references('id')->on('categories');
+            $table->unsignedBigInteger('archive_id');
+            $table->json('categories');
+            $table->unsignedBigInteger('location_id');
+            $table->foreign('location_id')->references('id')->on('locations');
             $table->foreign('user_id')->references('id')->on('users');
             $table->text('search_text')->nullable();
             $table->timestamps();

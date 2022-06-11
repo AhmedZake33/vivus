@@ -9,6 +9,17 @@ use App\Models\Archive\Archive;
 
 class ArchiveController extends Controller
 {
+    public function download(Archive $archive) {
+
+        try {
+
+            return $archive->download();
+        } catch (\Exception $e) {
+
+            return error(System::HTTP_SERVER_ERROR);
+        }
+    }
+
     public function secureDownload($sid){
 
         $list = explode(",", $sid);

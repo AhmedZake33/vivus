@@ -42,7 +42,10 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
 
 
     // archive routes
-    Route::get("archive/secureDownload/{sid}", 'ArchiveController@secureDownload')->name('secure_download_file');
+    // Route::get("archive/secureDownload/{sid}", 'ArchiveController@secureDownload')->name('secure_download_file');
+	Route::get("download/{archive}", 'ArchiveController@download')->name('secure_download_file');
+
+
 
 
 

@@ -21,6 +21,25 @@ use Illuminate\Support\Facades\Storage;
 use NcJoes\OfficeConverter\OfficeConverter;
 
 
+
+
+if (!function_exists('checkLanguage')) {
+    function checkLanguage($array)
+    {
+        if($array != null){
+            if($array == 'ar')
+            {
+                return 'ar';
+            }else{
+                return 'en';
+            }
+        }else{
+            return 'en';
+        }
+    }
+}
+
+
 if (!function_exists('d')) {
     function d($in)
     {
@@ -437,6 +456,7 @@ if (!function_exists('responseFile')) {
     }
 }
 
+
 if (!function_exists('sendMails')) {
     function sendMails($roles)
     {
@@ -463,6 +483,7 @@ if (!function_exists('sendMails')) {
         dd('done');
     }
 }
+
 
 if (!function_exists('socialCheck')) {
     function socialCheck($user, $name, $token)
