@@ -16,7 +16,7 @@ class CreateAvaiableLocationsTable extends Migration
         Schema::create('avaiableLocations', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedBigInteger('country_id');
-            $table->foreign('country_id')->refrences('id')->on('countries');
+            $table->foreign('country_id')->references('id')->on('countries');
             $table->timestamps();
         });
     }
