@@ -290,9 +290,6 @@ route::get('prepare',function(){
 (251, 'MF', 'MAF', 'Saint Martin (French)', 'ساينت مارتن فرنسي', 'Saint Martin (French)', 'ساينت مارتن فرنسي'),
 (252, 'SX', 'SX', 'Saint Martin (Dutch)', 'ساينت مارتن هولندي', 'Saint Martin (Dutch)', 'ساينت مارتن هولندي'),
 (253, 'SS', 'SSD', 'South Sudan', 'جنوب السودان', 'South Sudanese', 'جنوب سوداني');
-ALTER TABLE countries
-  ADD PRIMARY KEY (id),
-  ADD UNIQUE KEY code_index (code);
 
     
 
