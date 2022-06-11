@@ -13,7 +13,7 @@ class CreateAvaiableLocationsTable extends Migration
      */
     public function up()
     {
-        Schema::create('avaiable_locations', function (Blueprint $table) {
+        Schema::create('avaiableLocations', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedBigInteger('country_id');
             $table->foreign('country_id')->refrences('id')->on('countries');
@@ -28,6 +28,6 @@ class CreateAvaiableLocationsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('avaiable_locations');
+        Schema::dropIfExists('avaiableLocations');
     }
 }
