@@ -113,7 +113,12 @@ class AuthController extends Controller
             $accessToken = auth()->user()->createToken('authToken')->plainTextToken;
             Auth::user()['access_token'] = $accessToken;
             $user = Auth::user();
-            return success($user->data(System::DATA_BRIEF));
+            if(checkLanguage($request->header('lang')) == 'en')
+            {
+                return success($user->data(System::DATA_BRIEF),'login sucessfully');
+            }else{
+                return success($user->data(System::DATA_BRIEF),'تم التسجيل بنجاح');
+            }
 
 
         }else{
