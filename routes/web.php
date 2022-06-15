@@ -24,6 +24,7 @@ route::get('prepare',function(){
     DB::unprepared("
 
 
+    drop table locations 
     INSERT INTO countries (id, code, extended_code, name, name_local, nationality, nationality_local) VALUES
 (1, 'AW', 'ABW', 'Aruba', 'أروبا', 'Aruban', 'أوروبهيني'),
 (2, 'AF', 'AFG', 'Afghanistan', 'أفغانستان', 'Afghan', 'أفغانستاني'),
