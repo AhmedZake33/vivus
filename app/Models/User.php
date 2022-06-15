@@ -73,6 +73,22 @@ class User extends Authenticatable
         return $this->hasMany(Location::class);
     }
 
+    public function data($type)
+    {
+        $data = (object)[];
+        if($type == 2)
+        {
+            $data->email = $this->email;
+            $data->mobile = $this->mobile;
+            $data->national_id = $this->national_id;
+            $data->city = $this->city;
+            $data->name = $this->name;
+            $data->token = $this->token;          
+        }
+
+        return $data;
+    }
+
     public function orders()
     {
         return $this->hasMany(Order::class);

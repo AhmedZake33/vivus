@@ -24,10 +24,10 @@ use NcJoes\OfficeConverter\OfficeConverter;
 
 
 if (!function_exists('checkLanguage')) {
-    function checkLanguage($array)
+    function checkLanguage($val)
     {
-        if($array != null){
-            if($array == 'ar')
+        if($val != null){
+            if($val == 'ar')
             {
                 return 'ar';
             }else{

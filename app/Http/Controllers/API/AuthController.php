@@ -33,10 +33,10 @@ class AuthController extends Controller
         ];
 
         $messages = [
-            'national_id.unique' => 'الرقم القومى مسجل فى قاعدة البيانات',
-            'email.unique' => 'البريد الالكترونى مسجل فى قاعدة البيانات ',
-            'mobile.unique' => 'رقم التليفون  مسجل فى قاعدة البيانات ',
-            "file" => 'برجاء اختيار صوره '
+            'national_id.unique' => (checkLanguage($request->header('lang')) == 'ar') ?'الرقم القومى مسجل فى قاعدة البيانات':'national id if already exist',
+            'email.unique' => (checkLanguage($request->header('lang')) == 'ar') ? 'البريد الالكترونى مسجل فى قاعدة البيانات ':'email is already exist',
+            'mobile.unique' =>(checkLanguage($request->header('lang')) == 'ar') ? 'رقم التليفون  مسجل فى قاعدة البيانات ':'mobile number is already exist',
+            "file" => (checkLanguage($request->header('lang')) == 'ar') ?'برجاء اختيار صوره ':"please slsect photo",
         ];
 
         $validations['password'] = $this->passwordValidation;
@@ -44,8 +44,14 @@ class AuthController extends Controller
 
         $validator = Validator::make($request->all(), $validations, $messages);
         if ($validator->fails())
-            return response()->json(['error' => implode(" - ", $validator->errors()->all()) . 'برجاء المراجعة '], 500);
+            if(checkLanguage($request->header('lang')) == 'ar')
+            {
+                return success(['error' => implode(" - ", $validator->errors()->all()) . 'برجاء المراجعة '],200,'حدث خظا في ادخال البيانات');
+            }else{
+                return success(['error' => implode(" - ", $validator->errors()->all()) . 'please review'],200,'error in entered data');
 
+            }   
+         
         $inputs = $request->except(['confirm_password','file']);
         $inputs['password'] = bcrypt($request->password);
         $inputs['removed'] = 2;
@@ -54,15 +60,27 @@ class AuthController extends Controller
         try {
             $user->archive->addDocumentWithShortName($request->file, 'PERSONAL_ID', 'PERSONAL_ID_CARD', 'PERSONAL_ID_CARD');
         } catch (\Exception $ex) {
-            // return response()->json(['message' => $ex], 500);
-            return success(['message' => $ex],200,'error in adding photo');
+            if(checkLanguage($request->header('lang')) == 'en')
+            {
+                return success(['message' => $ex],200,'error in adding photo');
+            }else{
+                return success(['message' => $ex],200,'حدث خطأ في حفظ الصوره');
+            }
+
+          
         }
 
         $success['user'] = $user;
         $token = $user->createToken($request->name);
         $user['token'] = $token->plainTextToken;
 
-        return success($user,System::HTTP_OK);
+        if(checkLanguage($request->header('lang')) == 'en')
+        {
+            return success($user->data(System::DATA_BRIEF),System::HTTP_OK,'register comppleted successfully');
+        }else{
+            return success($user->data(System::DATA_BRIEF),System::HTTP_OK,'تم التسجيل بنجاح');
+        }
+       
     }
 
     public function login(Request $request)
@@ -76,7 +94,15 @@ class AuthController extends Controller
 
         if ($validator->fails()) {
 
-            return error(System::HTTP_BAD_REQUEST, 'message','The username or password is incorrect , please try again');
+
+            if(checkLanguage($request->header('lang')) == 'en')
+            {
+                return success([],200,'The username or password is incorrect , please try again');
+            }else{
+                return success([],200,'خطأ في البريد الالكتروني او الباسورد  ');
+            }
+
+           
         }
 
         $user = User::where('email', $request->email)->first();
@@ -86,11 +112,17 @@ class AuthController extends Controller
             Auth::login($user);
             $accessToken = auth()->user()->createToken('authToken')->plainTextToken;
             Auth::user()['access_token'] = $accessToken;
-            return success(Auth::user());
+            $user = Auth::user();
+            return success($user->data(System::DATA_BRIEF));
 
 
         }else{
-            return error(System::HTTP_BAD_REQUEST, 'The username or password is incorrect , please try again');
+            if(checkLanguage($request->header('lang')) == 'en')
+            {
+                return success([],200,'The username or password is incorrect , please try again');
+            }else{
+                return success([],200,'خطأ في البريد الالكتروني او الباسورد  ');
+            }
         }
     }
 
