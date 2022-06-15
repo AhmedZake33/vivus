@@ -52,6 +52,7 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     //users routes
     Route::post('user/edit','UsersController@edit');
     Route::get('/profile','UsersController@profile');
+    Route::post("/password/change","UsersController@changePassword");
 
     // lookups routes 
     route::get('lookups','LookupsController@lookups');

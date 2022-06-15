@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\System\System;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 use App\Models\User;
 class UsersController extends Controller
 {
@@ -39,6 +40,51 @@ class UsersController extends Controller
         $user->fill($inputs);
         $user->save();
         return success($user);
+    }
+
+    public function changePassword(Request $request)
+    {
+        $validations = [
+            'password' => [
+                'required',
+                // 'string',
+                'min:6',             // must be at least 10 characters in length
+                // 'regex:/[a-z]/',      // must contain at least one lowercase letter
+                // 'regex:/[A-Z]/',      // must contain at least one uppercase letter
+                // 'regex:/[0-9]/',      // must contain at least one digit
+                // 'regex:/[@$!%*#?&]/', // must contain a special character
+            ],
+        ];
+
+        $messages = [
+            'password.required' => (checkLanguage($request->header('lang')) == 'ar') ?'تاكد من الباسورد':'check your password',
+            'password.min' => (checkLanguage($request->header('lang')) == 'ar') ?'    يجب ان يكون الباسورد مكون من 6 حروف  ':'password must at least 6 character and symbol',   
+
+        ];
+
+
+        $validator = Validator::make($request->all(), $validations, $messages);
+        if ($validator->fails())
+        {
+            if(checkLanguage($request->header('lang')) == 'ar')
+            {
+                return success(null,500,implode(" - ", $validator->errors()->all()));
+            }else{
+                return success(null,500,implode(" - ", $validator->errors()->all()));
+
+            }   
+        }
+
+        $user = Auth::user();
+        $user->password = bcrypt($request->password);
+        $user->save();
+        if(checkLanguage($request->header('lang')) == 'ar')
+        {
+            return success(null,200,'تم تغير الباسورد بنجاح');
+        }else{
+            return success(null,200,'password change succesdfully');
+
+        }   
     }
 
 

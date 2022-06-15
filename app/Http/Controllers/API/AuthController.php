@@ -14,13 +14,13 @@ class AuthController extends Controller
 {
     public $passwordValidation = [
         'required',
-        'string',
-        'max:30',
-        'min:8',             // must be at least 6 characters in length
-        'regex:/[a-z]/',      // must contain at least one lowercase letter
-        'regex:/[A-Z]/',      // must contain at least one uppercase letter
-        'regex:/[0-9]/',      // must contain at least one digit
-        'regex:/[@$!%*_#?&]/', // must contain a special character
+        // 'string',
+        // 'max:30',
+        'min:6',             // must be at least 6 characters in length
+        // 'regex:/[a-z]/',      // must contain at least one lowercase letter
+        // 'regex:/[A-Z]/',      // must contain at least one uppercase letter
+        // 'regex:/[0-9]/',      // must contain at least one digit
+        // 'regex:/[@$!%*_#?&]/', // must contain a special character
     ];
     public function register(Request $request)
     {
@@ -44,13 +44,16 @@ class AuthController extends Controller
 
         $validator = Validator::make($request->all(), $validations, $messages);
         if ($validator->fails())
+        {
             if(checkLanguage($request->header('lang')) == 'ar')
             {
-                return success(['error' => implode(" - ", $validator->errors()->all()) . 'برجاء المراجعة '],200,'حدث خظا في ادخال البيانات');
+                return success(null,500,implode(" - ", $validator->errors()->all()));
             }else{
-                return success(['error' => implode(" - ", $validator->errors()->all()) . 'please review'],200,'error in entered data');
+                return success(null,500,implode(" - ", $validator->errors()->all()));
 
             }   
+        }
+ 
          
         $inputs = $request->except(['confirm_password','file']);
         $inputs['password'] = bcrypt($request->password);
