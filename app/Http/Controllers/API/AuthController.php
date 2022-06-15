@@ -36,7 +36,7 @@ class AuthController extends Controller
             'national_id.unique' => (checkLanguage($request->header('lang')) == 'ar') ?'الرقم القومى مسجل فى قاعدة البيانات':'national id if already exist',
             'email.unique' => (checkLanguage($request->header('lang')) == 'ar') ? 'البريد الالكترونى مسجل فى قاعدة البيانات ':'email is already exist',
             'mobile.unique' =>(checkLanguage($request->header('lang')) == 'ar') ? 'رقم التليفون  مسجل فى قاعدة البيانات ':'mobile number is already exist',
-            "file" => (checkLanguage($request->header('lang')) == 'ar') ?'برجاء اختيار صوره ':"please slsect photo",
+            "file" => (checkLanguage($request->header('lang')) == 'ar') ?' برجاء اختيار صوره ':"please slsect photo",
         ];
 
         $validations['password'] = $this->passwordValidation;
