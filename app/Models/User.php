@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
+use App\Models\System\System;
 use App\Models\Archive\Archive;
 
 
@@ -76,7 +77,7 @@ class User extends Authenticatable
     public function data($type)
     {
         $data = (object)[];
-        if($type == 2)
+        if($type == System::DATA_BRIEF)
         {
             $data->email = $this->email;
             $data->mobile = $this->mobile;
