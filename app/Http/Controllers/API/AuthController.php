@@ -76,7 +76,7 @@ class AuthController extends Controller
 
         if(checkLanguage($request->header('lang')) == 'en')
         {
-            return success($user->data(System::DATA_BRIEF),System::HTTP_OK,'register comppleted successfully');
+            return success($user->data(System::DATA_BRIEF),System::HTTP_OK,'register completed successfully');
         }else{
             return success($user->data(System::DATA_BRIEF),System::HTTP_OK,'تم التسجيل بنجاح');
         }
@@ -115,9 +115,9 @@ class AuthController extends Controller
             $user = Auth::user();
             if(checkLanguage($request->header('lang')) == 'en')
             {
-                return success($user->data(System::DATA_BRIEF),'login sucessfully');
+                return success($user->data(System::DATA_BRIEF),System::HTTP_OK,'login sucessfully');
             }else{
-                return success($user->data(System::DATA_BRIEF),'تم التسجيل بنجاح');
+                return success($user->data(System::DATA_BRIEF),System::HTTP_OK,'تم التسجيل بنجاح');
             }
 
 
