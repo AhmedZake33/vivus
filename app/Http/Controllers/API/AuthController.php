@@ -68,9 +68,7 @@ class AuthController extends Controller
                 return success(['message' => $ex],200,'error in adding photo');
             }else{
                 return success(['message' => $ex],200,'حدث خطأ في حفظ الصوره');
-            }
-
-          
+            }    
         }
 
         $success['user'] = $user;
@@ -97,14 +95,12 @@ class AuthController extends Controller
 
         if ($validator->fails()) {
 
-
             if(checkLanguage($request->header('lang')) == 'en')
             {
                 return success([],200,'The username or password is incorrect , please try again');
             }else{
                 return success([],200,'خطأ في البريد الالكتروني او الباسورد  ');
             }
-
            
         }
 
@@ -113,9 +109,8 @@ class AuthController extends Controller
         if($user && password_verify($request->password, $user->password)) {
 
             Auth::login($user);
-            $accessToken = auth()->user()->createToken('authToken')->plainTextToken;
-            Auth::user()['access_token'] = $accessToken;
-            $user = Auth::user();
+            $token = $user->createToken($user->name);
+            $user['token'] = $token->plainTextToken;
             if(checkLanguage($request->header('lang')) == 'en')
             {
                 return success($user->data(System::DATA_BRIEF),System::HTTP_OK,'login sucessfully');
