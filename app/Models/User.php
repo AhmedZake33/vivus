@@ -86,6 +86,14 @@ class User extends Authenticatable
             $data->name = $this->name;
             $data->token = $this->token;          
         }
+        if($type == System::DATA_LIST)
+        {
+            $data->email = $this->email;
+            $data->mobile = $this->mobile;
+            $data->national_id = $this->national_id;
+            $data->city = $this->city;
+            $data->name = $this->name;
+        }
 
         return $data;
     }

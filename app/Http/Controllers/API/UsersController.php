@@ -31,15 +31,45 @@ class UsersController extends Controller
     public function edit(Request $request)
     {
         $user = Auth::user();
+        $validations = [
+            'national_id' => 'required|unique:users,national_id' . (($user) ? ",$user->id," : ""),
+            'mobile' => 'required|unique:users,mobile' . (($user) ? ",$user->id," : ""),
+        ];
+
+        $messages = [
+            'national_id.unique' => (checkLanguage($request->header('lang')) == 'ar') ?'الرقم القومى مسجل فى قاعدة البيانات':'national id if already exist',
+            'mobile.unique' =>(checkLanguage($request->header('lang')) == 'ar') ? 'رقم التليفون  مسجل فى قاعدة البيانات ':'mobile number is already exist'
+        ];
+
+
+        $validator = Validator::make($request->all(), $validations, $messages);
+        if ($validator->fails())
+        {
+            if(checkLanguage($request->header('lang')) == 'ar')
+            {
+                return success(null,500,implode(" - ", $validator->errors()->all()));
+            }else{
+                return success(null,500,implode(" - ", $validator->errors()->all()));
+
+            }   
+        }
+
+        $user = Auth::user();
         $user = User::find($user->id);
-        $inputs = $request->all();
+        $inputs = $request->except(['email']);
         if($request->has('password'))
         {
             $inputs['password'] = bcrypt($request->password);
         }
         $user->fill($inputs);
         $user->save();
-        return success($user);
+
+        if(checkLanguage($request->header('lang')) == 'en')
+        {
+            return success($user->data(System::DATA_LIST),System::HTTP_OK,'updated data successfully');
+        }else{
+            return success($user->data(System::DATA_LIST),System::HTTP_OK,'تم تعديل البيانات بنجاح');
+        }
     }
 
     public function changePassword(Request $request)
