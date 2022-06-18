@@ -109,8 +109,8 @@ class AuthController extends Controller
         if($user && password_verify($request->password, $user->password)) {
 
             Auth::login($user);
-            $token = $user->createToken($user->name);
-            $user['token'] = $token->plainTextToken;
+            $accessToken = $user->createToken($user->name)->plainTextToken;
+            $user['token'] = $accessToken;
             if(checkLanguage($request->header('lang')) == 'en')
             {
                 return success($user->data(System::DATA_BRIEF),System::HTTP_OK,'login sucessfully');
