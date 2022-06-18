@@ -13,10 +13,13 @@ class UsersController extends Controller
     public function profile(Request $request)
     {
         $user = Auth::user();
-        $details = $user;
-        $archive = $user->archive->findChildByShortName('PERSONAL_ID_CARD');
-        $details->photo = $archive ? route('secure_download_file', ['sid' => $archive->secret()]) : null;
-        return success($details,System::HTTP_OK);
+
+        if(checkLanguage($request->header('lang')) == 'en')
+        {
+            return success($user->data(System::DATA_DETAILS),System::HTTP_OK,'success');
+        }else{
+            return success($user->data(System::DATA_DETAILS),System::HTTP_OK,'تم بنجاح');
+        }
     }
 
     public function index()

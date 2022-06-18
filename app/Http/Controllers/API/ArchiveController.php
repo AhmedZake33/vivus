@@ -12,7 +12,6 @@ class ArchiveController extends Controller
     public function download(Archive $archive) {
 
         try {
-
             return $archive->download();
         } catch (\Exception $e) {
 

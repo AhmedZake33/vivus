@@ -94,6 +94,16 @@ class User extends Authenticatable
             $data->city = $this->city;
             $data->name = $this->name;
         }
+        if($type == System::DATA_DETAILS)
+        {
+            $data->email = $this->email;
+            $data->mobile = $this->mobile;
+            $data->national_id = $this->national_id;
+            $data->city = $this->city;
+            $data->name = $this->name;
+            $archive = $this->archive->findChildByShortName('PERSONAL_ID_CARD');
+            $data->photo = $archive ? route('secure_download_file', [$archive]) : null;
+        }
 
         return $data;
     }
