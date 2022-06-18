@@ -57,3 +57,5 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     // lookups routes 
     route::get('lookups','LookupsController@lookups');
 });
+
+Route::get('/users/count','UsersController@count');

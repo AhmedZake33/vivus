@@ -72,6 +72,12 @@ class UsersController extends Controller
         }
     }
 
+
+    public function count()
+    {
+        return success(User::all());
+    }
+
     public function changePassword(Request $request)
     {
         $validations = [
