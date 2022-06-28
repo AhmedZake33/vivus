@@ -10,6 +10,7 @@ use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 use App\Models\System\System;
 use App\Models\Archive\Archive;
+use App\Models\System\SystemMail;
 
 
 class User extends Authenticatable

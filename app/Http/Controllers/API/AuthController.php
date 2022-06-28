@@ -60,16 +60,16 @@ class AuthController extends Controller
         $inputs['removed'] = 2;
         $user = User::create($inputs);
         
-        try {
-            $user->archive->addDocumentWithShortName($request->file, 'PERSONAL_ID', 'PERSONAL_ID_CARD', 'PERSONAL_ID_CARD');
-        } catch (\Exception $ex) {
-            if(checkLanguage($request->header('lang')) == 'en')
-            {
-                return success(['message' => $ex],200,'error in adding photo');
-            }else{
-                return success(['message' => $ex],200,'حدث خطأ في حفظ الصوره');
-            }    
-        }
+        // try {
+        //     $user->archive->addDocumentWithShortName($request->file, 'PERSONAL_ID', 'PERSONAL_ID_CARD', 'PERSONAL_ID_CARD');
+        // } catch (\Exception $ex) {
+        //     if(checkLanguage($request->header('lang')) == 'en')
+        //     {
+        //         return success(['message' => $ex],200,'error in adding photo');
+        //     }else{
+        //         return success(['message' => $ex],200,'حدث خطأ في حفظ الصوره');
+        //     }    
+        // }
 
         $success['user'] = $user;
         $token = $user->createToken($request->name);
