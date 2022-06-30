@@ -119,7 +119,7 @@ class User extends Authenticatable
         $name = "$this->name";
         $mobile = ($this->mobile) ? str_replace(" ", "", $this->mobile) : "";
         $email = ($this->email) ? $this->email : "";
-        // $national_id = ($this->national_id) ? $this->national_id : "";
+        $national_id = ($this->national_id) ? $this->national_id : "";
         $text = "#$this->id, " . getFTS($name) . ", $email, $mobile , $national_id";
         $this->search_text = $text;
         parent::save($options);
