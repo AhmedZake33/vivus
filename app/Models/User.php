@@ -82,8 +82,8 @@ class User extends Authenticatable
         {
             $data->email = $this->email;
             $data->mobile = $this->mobile;
-            $data->national_id = $this->national_id;
-            $data->city = $this->city;
+            // $data->national_id = $this->national_id;
+            // $data->city = $this->city;
             $data->name = $this->name;
             $data->token = $this->token;          
         }
@@ -91,19 +91,19 @@ class User extends Authenticatable
         {
             $data->email = $this->email;
             $data->mobile = $this->mobile;
-            $data->national_id = $this->national_id;
-            $data->city = $this->city;
+            // $data->national_id = $this->national_id;
+            // $data->city = $this->city;
             $data->name = $this->name;
         }
         if($type == System::DATA_DETAILS)
         {
             $data->email = $this->email;
             $data->mobile = $this->mobile;
-            $data->national_id = $this->national_id;
-            $data->city = $this->city;
+            // $data->national_id = $this->national_id;
+            // $data->city = $this->city;
             $data->name = $this->name;
-            $archive = $this->archive->findChildByShortName('PERSONAL_ID_CARD');
-            $data->photo = $archive ? route('secure_download_file', [$archive]) : null;
+            // $archive = $this->archive->findChildByShortName('PERSONAL_ID_CARD');
+            // $data->photo = $archive ? route('secure_download_file', [$archive]) : null;
         }
 
         return $data;
@@ -119,7 +119,7 @@ class User extends Authenticatable
         $name = "$this->name";
         $mobile = ($this->mobile) ? str_replace(" ", "", $this->mobile) : "";
         $email = ($this->email) ? $this->email : "";
-        $national_id = ($this->national_id) ? $this->national_id : "";
+        // $national_id = ($this->national_id) ? $this->national_id : "";
         $text = "#$this->id, " . getFTS($name) . ", $email, $mobile , $national_id";
         $this->search_text = $text;
         parent::save($options);
