@@ -21,7 +21,7 @@ class CreateUsersTable extends Migration
             $table->string('draft_email', 200)->nullable();
             $table->string('mobile', 12)->nullable()->unique('mobile');
             $table->string('verification_code',10)->nullable();
-            $table->string('forget_code',10)->nullable();
+           
             $table->string('national_id', 14)->nullable()->unique('national_id_2');
             $table->integer('firebase_token')->nullable()->default(0);
             $table->integer('removed')->default(0);
