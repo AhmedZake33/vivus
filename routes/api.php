@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Route;
 // GLOBAL Routes
 Route::post('register','AuthController@register');
 Route::post('login','AuthController@login');
+Route::post('user/reset/password','AuthController@reset');
 
 
 
@@ -53,7 +54,8 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::post('user/edit','UsersController@edit');
     Route::get('/profile','UsersController@profile');
     Route::post("/password/change","UsersController@changePassword");
-
+    Route::post('user/verifiy','UsersController@verifiy');
+    Route::post('user/forget/password','UsersController@forget');
     // lookups routes 
     route::get('lookups','LookupsController@lookups');
 });

@@ -75,6 +75,29 @@ class User extends Authenticatable
         return $this->hasMany(Location::class);
     }
 
+    public function verfication()
+    {
+        $code = 123456;
+        $this->verification_code = $code;
+        $this->save();
+        $mail = new SystemMail("MCSD - Email Verification", "verify_email", ["verification_code" => $this->verification_code]);
+        $result = $mail->submit($this->email);
+
+        return true;
+
+    }
+
+    public function isVerified()
+    {
+        if($this->verification_code != null)
+        {
+            return false;
+        }
+        return true;
+    }
+
+    
+
     public function data($type)
     {
         $data = (object)[];
@@ -82,25 +105,21 @@ class User extends Authenticatable
         {
             $data->email = $this->email;
             $data->mobile = $this->mobile;
-            // $data->national_id = $this->national_id;
-            // $data->city = $this->city;
             $data->name = $this->name;
+            $data->isVerified = $this->isVerified();
             $data->token = $this->token;          
         }
         if($type == System::DATA_LIST)
         {
             $data->email = $this->email;
             $data->mobile = $this->mobile;
-            // $data->national_id = $this->national_id;
-            // $data->city = $this->city;
+            $data->isVerified = $this->isVerified();
             $data->name = $this->name;
         }
         if($type == System::DATA_DETAILS)
         {
             $data->email = $this->email;
             $data->mobile = $this->mobile;
-            // $data->national_id = $this->national_id;
-            // $data->city = $this->city;
             $data->name = $this->name;
             // $archive = $this->archive->findChildByShortName('PERSONAL_ID_CARD');
             // $data->photo = $archive ? route('secure_download_file', [$archive]) : null;

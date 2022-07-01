@@ -59,7 +59,8 @@ class AuthController extends Controller
         $inputs['password'] = bcrypt($request->password);
         $inputs['removed'] = 2;
         $user = User::create($inputs);
-        
+        $user->save();
+        $user->verfication();
         // try {
         //     $user->archive->addDocumentWithShortName($request->file, 'PERSONAL_ID', 'PERSONAL_ID_CARD', 'PERSONAL_ID_CARD');
         // } catch (\Exception $ex) {
@@ -74,6 +75,8 @@ class AuthController extends Controller
         $success['user'] = $user;
         $token = $user->createToken($request->name);
         $user['token'] = $token->plainTextToken;
+
+       
 
         if(checkLanguage($request->header('lang')) == 'en')
         {
@@ -128,5 +131,26 @@ class AuthController extends Controller
             }
         }
     }
+
+    public function reset(Request $request)
+    {
+        $user = User::where('forget_code',$request->code)->first();
+        if($user)
+        {
+            $user->forget_code = null;
+            $user->save();
+            Auth::login($user);
+            $accessToken = $user->createToken($user->name)->plainTextToken;
+            $user['token'] = $accessToken;
+            if(checkLanguage($request->header('lang')) == 'en')
+            {
+                return success($user->data(System::DATA_BRIEF),System::HTTP_OK,'code is verified');
+            }else{
+                return success($user->data(System::DATA_BRIEF),System::HTTP_OK,'تم التحقق من الكود');
+            }
+        }
+      
+    }
+
 
 }

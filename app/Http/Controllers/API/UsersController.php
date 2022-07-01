@@ -75,26 +75,72 @@ class UsersController extends Controller
         }
     }
 
+    public function verifiy(Request $request)
+    {
+        $user =  Auth::user();
+
+        if($request->code == $user->verification_code)
+        {
+            $user->verification_code = null;
+            $user->save();
+            if(checkLanguage($request->header('lang')) == 'en')
+            {
+                return success($user->data(System::DATA_LIST),System::HTTP_OK,'register completed successfully');
+            }else{
+                return success($user->data(System::DATA_LIST),System::HTTP_OK,'تم التسجيل بنجاح');
+            }
+        }else if ($user->verification_code == null){
+            if(checkLanguage($request->header('lang')) == 'en')
+            {
+                return success($user->data(System::DATA_LIST),System::HTTP_OK,'register completed successfully');
+            }else{
+                return success($user->data(System::DATA_LIST),System::HTTP_OK,'تم التسجيل بنجاح');
+            }
+        }
+
+        if(checkLanguage($request->header('lang')) == 'en')
+        {
+            return success([],System::HTTP_OK,'  error in verifiy email');
+        }else{
+            return success([],System::HTTP_OK,'حدث خطأ اثناء التفعيل');
+        }
+    }
+
+    public function forget(Request $request)
+    {
+        $user = User::whereMobile($request->mobile)->first();
+        if($user)
+        {
+            $user->forget_code = 654321;
+            $user->save();
+        }
+        if(checkLanguage($request->header('lang')) == 'en')
+        {
+            return success($user->data(System::DATA_LIST),System::HTTP_OK,' forget code sent to mobile');
+        }else{
+            return success($user->data(System::DATA_LIST),System::HTTP_OK,'تم ارسال كود التفعيل الي الموبايل');
+        }
+    }
+
+  
     public function changePassword(Request $request)
     {
         $validations = [
-            'password' => [
-                'required',
-                // 'string',
-                'min:6',             // must be at least 10 characters in length
-                // 'regex:/[a-z]/',      // must contain at least one lowercase letter
-                // 'regex:/[A-Z]/',      // must contain at least one uppercase letter
-                // 'regex:/[0-9]/',      // must contain at least one digit
-                // 'regex:/[@$!%*#?&]/', // must contain a special character
-            ],
+           'old_password'=>'required|min:6',
+           'new_password'=>'required|min:6',
+           'confirm_password'=>'required|min:6|same:new_password',
         ];
 
         $messages = [
-            'password.required' => (checkLanguage($request->header('lang')) == 'ar') ?'تاكد من الباسورد':'check your password',
-            'password.min' => (checkLanguage($request->header('lang')) == 'ar') ?'    يجب ان يكون الباسورد مكون من 6 حروف  ':'password must at least 6 character and symbol',   
+            'old_password.required' => (checkLanguage($request->header('lang')) == 'ar') ?'تاكد من الباسورد':'check your password',
+            'old_password.min' => (checkLanguage($request->header('lang')) == 'ar') ?'    يجب ان يكون الباسورد مكون من 6 حروف  ':'password must at least 6 character and symbol',   
+            'new_password.required' => (checkLanguage($request->header('lang')) == 'ar') ?'تاكد من الباسورد':'check your password',
+            'new_password.min' => (checkLanguage($request->header('lang')) == 'ar') ?'    يجب ان يكون الباسورد مكون من 6 حروف  ':'password must at least 6 character and symbol',   
+            'confirm_password.required' => (checkLanguage($request->header('lang')) == 'ar') ?'تاكد من الباسورد':'check your password',
+            'confirm_password.min' => (checkLanguage($request->header('lang')) == 'ar') ?'    يجب ان يكون الباسورد مكون من 6 حروف  ':'password must at least 6 character and symbol',   
+            'confirm_password.same' => (checkLanguage($request->header('lang')) == 'ar') ?'    يجب ان يكون تاكيد الباسورد يساوي الباسورد      ':'password  and confirm password didnot match',   
 
         ];
-
 
         $validator = Validator::make($request->all(), $validations, $messages);
         if ($validator->fails())
@@ -109,15 +155,28 @@ class UsersController extends Controller
         }
 
         $user = Auth::user();
-        $user->password = bcrypt($request->password);
-        $user->save();
-        if(checkLanguage($request->header('lang')) == 'ar')
+        if($user && password_verify($request->old_password, $user->password))
         {
-            return success(null,200,'تم تغير الباسورد بنجاح');
+            $user->password = bcrypt($request->new_password);
+            $user->save();
+            if(checkLanguage($request->header('lang')) == 'ar')
+            {
+                return success(null,200,'تم تغير الباسورد بنجاح');
+            }else{
+                return success(null,200,'password change successfully');
+    
+            }  
         }else{
-            return success(null,200,'password change succesdfully');
-
-        }   
+            if(checkLanguage($request->header('lang')) == 'ar')
+            {
+                return success(null,200,'حدث خطأ اثناء تغير الباسورد ');
+            }else{
+                return success(null,200,'something wrong when change password');
+    
+            }  
+        }
+       
+       
     }
 
 
