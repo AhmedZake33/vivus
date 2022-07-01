@@ -77,7 +77,7 @@ class User extends Authenticatable
 
     public function verfication()
     {
-        $code = 123456;
+        $code = 1234;
         $this->verification_code = $code;
         $this->save();
         $mail = new SystemMail("MCSD - Email Verification", "verify_email", ["verification_code" => $this->verification_code]);

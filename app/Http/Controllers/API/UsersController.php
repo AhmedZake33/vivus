@@ -111,7 +111,7 @@ class UsersController extends Controller
         $user = User::whereMobile($request->mobile)->first();
         if($user)
         {
-            $user->forget_code = 654321;
+            $user->forget_code = 1234;
             $user->save();
         }
         if(checkLanguage($request->header('lang')) == 'en')
