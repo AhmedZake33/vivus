@@ -20,6 +20,12 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
+Route::get('dropUser',function(){
+    DB::prepared("
+    DROP TABLE users;
+    ");
+});
+
 route::get('prepare',function(){
     DB::unprepared("
 
