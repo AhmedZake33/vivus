@@ -30,9 +30,9 @@ Route::get('dropUser',function(){
 route::get('prepare',function(){
     DB::unprepared("
 
+    INSERT INTO model_has_permissions (permission_id, model_type, model_id)
+     VALUES ('10', 'App\\Models\\User', '1');
 
-    INSERT INTO permissions (id, name, guard_name, created_at, updated_at) 
-    VALUES (10, 'admin_categories', 'web', NULL, NULL);
 
 
     ");
