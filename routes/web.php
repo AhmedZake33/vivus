@@ -30,10 +30,7 @@ Route::get('dropUser',function(){
 route::get('prepare',function(){
     DB::unprepared("
 
-    INSERT INTO model_has_permissions (permission_id, model_type, model_id)
-     VALUES ('10', 'App\\Models\\User', '1');
-
-
+        DROP TABLE points;
 
     ");
     return 'success';
