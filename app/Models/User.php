@@ -79,7 +79,7 @@ class User extends Authenticatable
     {
         return $this->hasOne(Point::class);
     }
-
+    
     public function verfication()
     {
         $code = 1234;
