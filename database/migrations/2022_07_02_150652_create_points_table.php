@@ -15,9 +15,9 @@ class CreatePointsTable extends Migration
     {
         Schema::table('points', function (Blueprint $table) {
             $table->increments('id');
+            $table->text('points')->nullable();
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
-            $table->text('points')->nullable();
             $table->timestamps();
         });
     }
