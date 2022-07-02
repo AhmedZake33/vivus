@@ -32,7 +32,7 @@ route::get('prepare',function(){
 
 
     INSERT INTO permissions (id, name, guard_name, created_at, updated_at) 
-    VALUES (NULL, 'admin_categories', 'web', NULL, NULL);
+    VALUES (10, 'admin_categories', 'web', NULL, NULL);
 
 
     ");
