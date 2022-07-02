@@ -23,8 +23,7 @@ class CreatePointsTable extends Migration
 
     public function down()
     {
-        Schema::table('points', function (Blueprint $table) {
-            Schema::dropIfExists('points');
-        });
+        Schema::dropIfExists('points');
+    
     }
 }
