@@ -31,11 +31,8 @@ route::get('prepare',function(){
     DB::unprepared("
 
 
-    INSERT INTO permissions (`id`, `name`, `guard_name`, `created_at`, `updated_at`) 
+    INSERT INTO permissions (id, name, guard_name, created_at, updated_at) 
     VALUES (NULL, 'admin_categories', 'web', NULL, NULL);
-
-
- 
 
 
     ");
