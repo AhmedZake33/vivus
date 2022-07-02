@@ -11,11 +11,7 @@ class Point extends Model
     protected $fillable = [
         'points','user_id'
     ];
-    
+
     protected $with = ['user:name,id'];
 
-    public function user()
-    {
-        return $this->belongsTo(User::class);
-    }
 }
