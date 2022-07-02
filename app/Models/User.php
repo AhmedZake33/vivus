@@ -77,7 +77,7 @@ class User extends Authenticatable
 
     public function point()
     {
-        return $this->hasOne(Point::class,'point_id','id');
+        return $this->hasOne(Point::class);
     }
 
     public function verfication()
