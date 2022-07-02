@@ -17,20 +17,15 @@ class CreatePointsTable extends Migration
             $table->increments('id');
             $table->unsignedBigInteger('user_id');
             $table->string('points',200);
-            $table->foreign('user_id')->references('id')->on('users');
+            // $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
     {
         Schema::table('points', function (Blueprint $table) {
-            //
+            Schema::dropIfExists('points');
         });
     }
 }
