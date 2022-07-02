@@ -19,6 +19,9 @@ Route::post('register','AuthController@register');
 Route::post('login','AuthController@login');
 Route::post('user/reset/password','AuthController@reset');
 
+Route::post('user/forget/password','UsersController@forget');
+
+
 
 
 // Authenticated Routes
@@ -27,6 +30,22 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::get('users','UsersController@index');
     Route::post("post/create",'PostsController@create');
     Route::post("category/add","CategoriesController@create");
+
+
+
+
+    // cateegories controllers
+
+    Route::post('categories','CategoriesController@index');
+    Route::post('category/edit/{category}','CategoriesController@edit');
+
+
+    // points controller 
+
+    Route::post('points','PointsController@points');
+    Route::post('points/add','PointsController@add');
+    Route::post('points/edit/{user}','PointsController@edit');
+    
    
 
     // location routes
@@ -55,7 +74,6 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::get('/profile','UsersController@profile');
     Route::post("/password/change","UsersController@changePassword");
     Route::post('user/verifiy','UsersController@verifiy');
-    Route::post('user/forget/password','UsersController@forget');
     // lookups routes 
     route::get('lookups','LookupsController@lookups');
 });

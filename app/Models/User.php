@@ -28,9 +28,9 @@ class User extends Authenticatable
         'name', 'email', 'password','mobile','city','national_id'
     ];
 
-    protected $with = [
-            'locations'
-    ];
+    // protected $with = [
+    //         'locations'
+    // ];
 
     // removed => 1 : removed
     // removed => 0 : active
@@ -73,6 +73,11 @@ class User extends Authenticatable
     public function locations()
     {
         return $this->hasMany(Location::class);
+    }
+
+    public function point()
+    {
+        return $this->hasOne(Point::class);
     }
 
     public function verfication()

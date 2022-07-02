@@ -116,9 +116,9 @@ class UsersController extends Controller
         }
         if(checkLanguage($request->header('lang')) == 'en')
         {
-            return success($user->data(System::DATA_LIST),System::HTTP_OK,' forget code sent to mobile');
+            return success([],System::HTTP_OK,' forget code sent to mobile');
         }else{
-            return success($user->data(System::DATA_LIST),System::HTTP_OK,'تم ارسال كود التفعيل الي الموبايل');
+            return success([],System::HTTP_OK,'تم ارسال كود التفعيل الي الموبايل');
         }
     }
 
@@ -126,14 +126,11 @@ class UsersController extends Controller
     public function changePassword(Request $request)
     {
         $validations = [
-           'old_password'=>'required|min:6',
            'new_password'=>'required|min:6',
            'confirm_password'=>'required|min:6|same:new_password',
         ];
 
         $messages = [
-            'old_password.required' => (checkLanguage($request->header('lang')) == 'ar') ?'تاكد من الباسورد':'check your password',
-            'old_password.min' => (checkLanguage($request->header('lang')) == 'ar') ?'    يجب ان يكون الباسورد مكون من 6 حروف  ':'password must at least 6 character and symbol',   
             'new_password.required' => (checkLanguage($request->header('lang')) == 'ar') ?'تاكد من الباسورد':'check your password',
             'new_password.min' => (checkLanguage($request->header('lang')) == 'ar') ?'    يجب ان يكون الباسورد مكون من 6 حروف  ':'password must at least 6 character and symbol',   
             'confirm_password.required' => (checkLanguage($request->header('lang')) == 'ar') ?'تاكد من الباسورد':'check your password',
@@ -155,7 +152,7 @@ class UsersController extends Controller
         }
 
         $user = Auth::user();
-        if($user && password_verify($request->old_password, $user->password))
+        if($user)
         {
             $user->password = bcrypt($request->new_password);
             $user->save();
