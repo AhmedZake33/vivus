@@ -30,7 +30,7 @@ Route::get('dropUser',function(){
 route::get('prepare',function(){
     DB::unprepared("
 
-    DELETE FROM users
+    selecet * from users
 
 
 
