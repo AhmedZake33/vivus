@@ -28,9 +28,10 @@ class User extends Authenticatable
         'name', 'email', 'password','mobile','city','national_id'
     ];
 
-    // protected $with = [
-    //         'locations'
-    // ];
+    protected $with = [
+            // 'locations',
+            // 'point'
+    ];
 
     // removed => 1 : removed
     // removed => 0 : active

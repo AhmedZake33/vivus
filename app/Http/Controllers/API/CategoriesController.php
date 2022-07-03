@@ -71,7 +71,13 @@ class CategoriesController extends Controller
 
         
         $category  = Category::Create($request->all());
-        return success($category,200);
+        
+        if(checkLanguage($request->header('lang')) == 'en')
+        {
+            return success($category,System::HTTP_OK, 'success');
+        }else{
+            return success($category,System::HTTP_OK,'تم بنجاح');
+        }
 
     }
 }
