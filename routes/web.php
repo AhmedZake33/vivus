@@ -30,7 +30,7 @@ Route::get('dropUser',function(){
 route::get('prepare',function(){
     DB::unprepared("
 
-    selecet * from users
+    SELECT * from users
 
 
 
