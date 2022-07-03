@@ -21,13 +21,12 @@ Route::post('user/reset/password','AuthController@reset');
 
 Route::post('user/forget/password','UsersController@forget');
 
-Route::get('users','UsersController@index');
 
 
 // Authenticated Routes
 Route::group(['middleware' => 'auth:sanctum'], function () {
     
-    
+
     Route::post("post/create",'PostsController@create');
     Route::post("category/add","CategoriesController@create");
 
@@ -70,6 +69,7 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
 
 
     //users routes
+    Route::get('users','UsersController@index');
     Route::post('user/edit','UsersController@edit');
     Route::get('/profile','UsersController@profile');
     Route::post("/password/change","UsersController@changePassword");

@@ -24,10 +24,10 @@ class UsersController extends Controller
 
     public function index()
     {
-        // if(!can('access_users'))
-        // {
-        //     return error(401,'message','errors');
-        // }
+        if(!can('access_users'))
+        {
+            return error(401,'message','errors');
+        }
         return success(User::all(),System::HTTP_OK);
     }
 
