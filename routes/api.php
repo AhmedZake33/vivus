@@ -21,13 +21,13 @@ Route::post('user/reset/password','AuthController@reset');
 
 Route::post('user/forget/password','UsersController@forget');
 
-
+Route::get('users','UsersController@index');
 
 
 // Authenticated Routes
 Route::group(['middleware' => 'auth:sanctum'], function () {
     
-    Route::get('users','UsersController@index');
+    
     Route::post("post/create",'PostsController@create');
     Route::post("category/add","CategoriesController@create");
 
