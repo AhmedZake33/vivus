@@ -22,25 +22,27 @@ class OrdersController extends Controller
         {
             return error(401,'unauthenticated');
         }
-        $query = DB::table('orders')->leftJoin('categories','categories.id','orders.category_id')
-        ->select('orders.id','orders.created_at','categories.id','categories.ar_name','categories.en_name','categories.price','orders.Quantity','orders.details');
+        $query = DB::table('orders')
+        ->select('orders.id','orders.created_at','orders.Quantity','orders.details');
         
-        if($request->category)
+      
+        // if($request->month)
+        // {
+
+        // }
+
+        // if($request->day)
+        // {
+
+        // }
+
+        if(checkLanguage($request->header('lang')) == 'en')
         {
-            $query->where('categories.id',$request->category);
-        }
-
-        if($request->month)
-        {
-
-        }
-
-        if($request->day)
-        {
-
+            return success($query->get(),System::HTTP_OK, 'success');
+        }else{
+            return success($query->get(),System::HTTP_OK,'تم بنجاح');
         }
         
-        return success($query->get(),System::HTTP_OK , 'success');
     }
 
     public function create(Request $request)

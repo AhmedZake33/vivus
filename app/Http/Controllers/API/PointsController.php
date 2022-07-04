@@ -14,7 +14,7 @@ class PointsController extends Controller
 {
     public function points(Request $request)
     {
-        $points = Point::all();
+        $points = Point::orderBy('points','desc')->get();
         if(checkLanguage($request->header('lang')) == 'en')
         {
             return success($points,200,'success');
