@@ -50,9 +50,9 @@ class UsersController extends Controller
         {
             if(checkLanguage($request->header('lang')) == 'ar')
             {
-                return success(null,500,implode(" - ", $validator->errors()->all()));
+                return success(null,1010,implode(" - ", $validator->errors()->all()));
             }else{
-                return success(null,500,implode(" - ", $validator->errors()->all()));
+                return success(null,1010,implode(" - ", $validator->errors()->all()));
 
             }   
         }
@@ -100,9 +100,9 @@ class UsersController extends Controller
 
         if(checkLanguage($request->header('lang')) == 'en')
         {
-            return success([],System::HTTP_OK,'  error in verifiy email');
+            return success([],1002,'  error in verifiy email');
         }else{
-            return success([],System::HTTP_OK,'حدث خطأ اثناء التفعيل');
+            return success([],1002,'حدث خطأ اثناء التفعيل');
         }
     }
 
@@ -144,9 +144,9 @@ class UsersController extends Controller
         {
             if(checkLanguage($request->header('lang')) == 'ar')
             {
-                return success(null,500,implode(" - ", $validator->errors()->all()));
+                return success(null,1010,implode(" - ", $validator->errors()->all()));
             }else{
-                return success(null,500,implode(" - ", $validator->errors()->all()));
+                return success(null,1010,implode(" - ", $validator->errors()->all()));
 
             }   
         }
@@ -166,9 +166,9 @@ class UsersController extends Controller
         }else{
             if(checkLanguage($request->header('lang')) == 'ar')
             {
-                return success(null,200,'حدث خطأ اثناء تغير الباسورد ');
+                return success(null,1002,'حدث خطأ اثناء تغير الباسورد ');
             }else{
-                return success(null,200,'something wrong when change password');
+                return success(null,1002,'something wrong when change password');
     
             }  
         }
