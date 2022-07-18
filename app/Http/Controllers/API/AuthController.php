@@ -134,7 +134,29 @@ class AuthController extends Controller
 
     public function reset(Request $request)
     {
-        $user = User::where('forget_code',$request->code)->first();
+        // validation on code 
+
+
+        $validations = [
+            'code' => 'required',
+            'mobile' => 'required|exists:users,mobile'
+        ];
+
+        $messages = [
+            'code.required' => ($request->header('lang') == 'en')? 'the code is required': 'برجاء ادخال الكود',
+            'mobile.required' => ($request->header('lang') == 'en')? 'the mobile is required': 'برجاء ادخال رقم الهاتف',
+            'mobile.exists' => ($request->header('lang') == 'en')? 'the mobile is not found': ' رقم الهاتف غير موجود ',
+
+        ];
+
+        $validator = Validator::make($request->all(), $validations, $messages);
+
+        if ($validator->fails()) {
+            return success([],1002,implode(" - ", $validator->errors()->all()));
+        }
+
+
+        $user = User::where('forget_code',$request->code)->where('mobile',$request->mobile)->first();
         if($user)
         {
             $user->forget_code = null;
@@ -147,6 +169,13 @@ class AuthController extends Controller
                 return success($user->data(System::DATA_BRIEF),System::HTTP_OK,'code is verified');
             }else{
                 return success($user->data(System::DATA_BRIEF),System::HTTP_OK,'تم التحقق من الكود');
+            }
+        }else{
+            if(checkLanguage($request->header('lang')) == 'en')
+            {
+                return success([],1002,'code is invalid');
+            }else{
+                return success([],1002,'الكود غير صحيح ');
             }
         }
       

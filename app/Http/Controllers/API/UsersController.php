@@ -79,8 +79,27 @@ class UsersController extends Controller
     {
         $user =  Auth::user();
 
+        $validations = [
+          'code' => 'required'
+        ];
+
+      
+
+        $validator = Validator::make($request->all(), $validations);
+        if ($validator->fails())
+        {
+            if(checkLanguage($request->header('lang')) == 'ar')
+            {
+                return success(null,1002,'برجاء ادخال الكود');
+            }else{
+                return success(null,1002,'code is required');
+
+            }   
+        }
+
         if($request->code == $user->verification_code)
         {
+            
             $user->verification_code = null;
             $user->save();
             if(checkLanguage($request->header('lang')) == 'en')
@@ -108,11 +127,34 @@ class UsersController extends Controller
 
     public function forget(Request $request)
     {
+        $validations = [
+            'mobile' => 'required'
+        ];
+
+        $validator = Validator::make($request->all(), $validations);
+
+        if ($validator->fails()) {
+
+            if(checkLanguage($request->header('lang')) == 'en')
+            {
+                return success([],1002,'The mobile number is required');
+            }else{
+                return success([],1002,'برجاء ادخال رقم الهاتف ');
+            }
+           
+        }
         $user = User::whereMobile($request->mobile)->first();
         if($user)
         {
             $user->forget_code = 1234;
             $user->save();
+        }else{
+            if(checkLanguage($request->header('lang')) == 'en')
+        {
+            return success([],1002,' mobile number not found');
+        }else{
+            return success([],1002,  ' رقم الهاتف غير موجود  ');
+        }
         }
         if(checkLanguage($request->header('lang')) == 'en')
         {
