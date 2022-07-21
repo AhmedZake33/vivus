@@ -119,9 +119,9 @@ class UsersController extends Controller
 
         if(checkLanguage($request->header('lang')) == 'en')
         {
-            return success([],1002,'  error in verifiy email');
+            return success(null,1002,'  error in verifiy email');
         }else{
-            return success([],1002,'حدث خطأ اثناء التفعيل');
+            return success(null,1002,'حدث خطأ اثناء التفعيل');
         }
     }
 
@@ -137,9 +137,9 @@ class UsersController extends Controller
 
             if(checkLanguage($request->header('lang')) == 'en')
             {
-                return success([],1002,'The mobile number is required');
+                return success(null,1002,'The mobile number is required');
             }else{
-                return success([],1002,'برجاء ادخال رقم الهاتف ');
+                return success(null,1002,'برجاء ادخال رقم الهاتف ');
             }
            
         }
@@ -151,16 +151,16 @@ class UsersController extends Controller
         }else{
             if(checkLanguage($request->header('lang')) == 'en')
         {
-            return success([],1002,' mobile number not found');
+            return success(null,1002,' mobile number not found');
         }else{
-            return success([],1002,  ' رقم الهاتف غير موجود  ');
+            return success(null,1002,  ' رقم الهاتف غير موجود  ');
         }
         }
         if(checkLanguage($request->header('lang')) == 'en')
         {
-            return success([],System::HTTP_OK,' forget code sent to mobile');
+            return success(null,System::HTTP_OK,' forget code sent to mobile');
         }else{
-            return success([],System::HTTP_OK,'تم ارسال كود التفعيل الي الموبايل');
+            return success(null,System::HTTP_OK,'تم ارسال كود التفعيل الي الموبايل');
         }
     }
 

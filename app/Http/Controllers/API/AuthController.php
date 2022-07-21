@@ -100,9 +100,9 @@ class AuthController extends Controller
 
             if(checkLanguage($request->header('lang')) == 'en')
             {
-                return success([],1002,'The username or password is incorrect , please try again');
+                return success(null,1002,'The username or password is incorrect , please try again');
             }else{
-                return success([],1002,'خطأ في البريد الالكتروني او الباسورد  ');
+                return success(null,1002,'خطأ في البريد الالكتروني او الباسورد  ');
             }
            
         }
@@ -125,9 +125,9 @@ class AuthController extends Controller
         }else{
             if(checkLanguage($request->header('lang')) == 'en')
             {
-                return success([],1002,'The username or password is incorrect , please try again');
+                return success(null,1002,'The username or password is incorrect , please try again');
             }else{
-                return success([],1002,'خطأ في البريد الالكتروني او الباسورد  ');
+                return success(null,1002,'خطأ في البريد الالكتروني او الباسورد  ');
             }
         }
     }
@@ -152,7 +152,7 @@ class AuthController extends Controller
         $validator = Validator::make($request->all(), $validations, $messages);
 
         if ($validator->fails()) {
-            return success([],1002,implode(" - ", $validator->errors()->all()));
+            return success(null,1002,implode(" - ", $validator->errors()->all()));
         }
 
 
@@ -173,9 +173,9 @@ class AuthController extends Controller
         }else{
             if(checkLanguage($request->header('lang')) == 'en')
             {
-                return success([],1002,'code is invalid');
+                return success(null,1002,'code is invalid');
             }else{
-                return success([],1002,'الكود غير صحيح ');
+                return success(null,1002,'الكود غير صحيح ');
             }
         }
       
