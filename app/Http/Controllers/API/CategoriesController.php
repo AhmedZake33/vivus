@@ -37,7 +37,7 @@ class CategoriesController extends Controller
         {
             $category->fill($request->all());
             $category->save();
-        }
+        }   
 
         if(checkLanguage($request->header('lang')) == 'en')
         {
@@ -79,5 +79,15 @@ class CategoriesController extends Controller
             return success($category,System::HTTP_OK,'تم بنجاح');
         }
 
+    }
+
+    public function category(Request $request,Category $category)
+    {
+        if(checkLanguage($request->header('lang')) == 'en')
+        {
+            return success($category->data(System::DATA_DETAILS),System::HTTP_OK,'success');
+        }else{
+            return success($category->data(System::DATA_DETAILS),System::HTTP_OK,'تم بنجاح');
+        }
     }
 }

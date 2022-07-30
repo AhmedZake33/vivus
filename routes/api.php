@@ -37,6 +37,7 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
 
     Route::post('categories','CategoriesController@index');
     Route::post('category/edit/{category}','CategoriesController@edit');
+    Route::get('category/{category}','CategoriesController@category');
 
 
     // points controller 
